@@ -7,7 +7,7 @@ const db = require('./config/mongoose.js');
 
 const app = express();
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 /* routing all requests here */
 app.use('/', require('./routes'));

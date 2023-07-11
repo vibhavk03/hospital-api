@@ -9,7 +9,7 @@ router.get('/health', function (req, res) {
   res.json({ 'health-check': 'green' });
 });
 
-// router.use('/doctors', doctorsRouter);
+router.use('/doctors', doctorsRouter);
 // router.use('/patients', patientsRouter);
 // router.use('/reports', reportsRouter);
 
