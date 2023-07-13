@@ -1,4 +1,5 @@
 const Doctor = require('../models/Doctor');
+const jwt = require('jsonwebtoken');
 
 const handleErrors = function (err) {
   let errors = { email: 'no error', password: 'no error' };
@@ -19,10 +20,19 @@ const handleErrors = function (err) {
   return errors;
 };
 
+const maxAge = 60 * 60;
+const createToken = (id) => {
+  return jwt.sign({ id }, 'thisIsMySecret', {
+    expiresIn: maxAge,
+  });
+};
+
 module.exports = {
   register: async function (req, res) {
     try {
       const doctor = await Doctor.create(req.body);
+      const token = createToken(doctor._id);
+      res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
       res.status(201).send(doctor);
     } catch (err) {
       console.log(`error in registering a doctor : ${err}`);
