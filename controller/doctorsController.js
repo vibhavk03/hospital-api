@@ -70,6 +70,7 @@ module.exports = {
   },
   checkLogin: function (req, res) {
     /* route to check if logged in successfully */
+    console.log(res.locals.doctor);
     res.json({
       message: 'you are logged in',
     });
