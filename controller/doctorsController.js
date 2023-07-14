@@ -68,4 +68,17 @@ module.exports = {
       });
     }
   },
+  checkLogin: function (req, res) {
+    /* route to check if logged in successfully */
+    res.json({
+      message: 'you are logged in',
+    });
+  },
+  logout: async function (req, res) {
+    /* setting jwt token as empty string with 1 millisecond expiry */
+    res.cookie('jwt', '', { maxAge: 1 });
+    res.json({
+      message: 'logged out successfully!',
+    });
+  },
 };

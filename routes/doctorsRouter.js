@@ -6,10 +6,8 @@ const doctorsController = require('../controller/doctorsController');
 
 router.post('/register', doctorsController.register);
 router.post('/login', doctorsController.login);
-/* route to check if logged in successfully */
-router.get('/checkLogin', requireAuth, (req, res) => {
-  res.status(200).json({ message: 'you are logged in' });
-});
+router.get('/checkLogin', requireAuth, doctorsController.checkLogin);
+router.get('/logout', doctorsController.logout);
 // router.delete('/delete/:id', doctorsController.delete);
 
 module.exports = router;
