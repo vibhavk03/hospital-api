@@ -30,6 +30,19 @@ doctorSchema.pre('save', async function (next) {
   next();
 });
 
+/* static method to login user */
+doctorSchema.statics.login = async function (email, password) {
+  const doctor = await this.findOne({ email });
+  if (doctor) {
+    const auth = await bcrypt.compare(password, doctor.password);
+    if (auth) {
+      return doctor;
+    }
+    throw Error('incorrect password');
+  }
+  throw Error('incorrect email');
+};
+
 const Doctor = new mongoose.model('doctor', doctorSchema);
 
 module.exports = Doctor;
