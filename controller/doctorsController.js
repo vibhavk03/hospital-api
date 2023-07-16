@@ -70,9 +70,8 @@ module.exports = {
   },
   checkLogin: function (req, res) {
     /* route to check if logged in successfully */
-    console.log(res.locals.doctor);
     res.json({
-      message: 'you are logged in',
+      message: `you are logged in as ${res.locals.doctor.email}`,
     });
   },
   logout: async function (req, res) {
@@ -80,6 +79,15 @@ module.exports = {
     res.cookie('jwt', '', { maxAge: 1 });
     res.json({
       message: 'logged out successfully!',
+    });
+  },
+  delete: async function (req, res) {
+    /* delete the jwt token */
+    res.cookie('jwt', '', { maxAge: 1 });
+    /* delete the doctor by ID */
+    await Doctor.deleteOne({ _id: res.locals.doctor.id });
+    res.json({
+      message: 'your profile is now deleted',
     });
   },
 };
