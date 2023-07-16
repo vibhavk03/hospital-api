@@ -43,4 +43,27 @@ const checkUser = (req, res, next) => {
   }
 };
 
-module.exports = { requireAuth, checkUser };
+const requireDoctor = (req, res, next) => {
+  const token = req.cookies.jwt;
+  /* check if jwt exists and is verified */
+  if (token) {
+    jwt.verify(token, 'thisIsMySecret', async (err, decodedToken) => {
+      if (err) {
+        res.status(400).json({
+          message: `error in accessing this route, please login`,
+          error: `${err.message}`,
+        });
+      } else {
+        const doctor = await Doctor.findById(decodedToken.id);
+        res.locals.doctor = doctor;
+        next();
+      }
+    });
+  } else {
+    res.status(400).json({
+      message: 'error in accessing this route, please login',
+    });
+  }
+};
+
+module.exports = { requireAuth, checkUser, requireDoctor };
