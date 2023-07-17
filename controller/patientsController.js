@@ -135,4 +135,30 @@ module.exports = {
       });
     }
   },
+  delete: async function (req, res) {
+    try {
+      const patient = await Patient.findByIdAndDelete(req.params.id);
+      if (patient) {
+        /* delete reports associated with patient */
+        await Report.deleteMany({
+          patientId: req.params.id,
+        });
+        res.status(200).json({
+          message: 'patient and associated reports deleted',
+          patient,
+        });
+      } else {
+        /* if patient id provided is not found in db */
+        res.status(400).json({
+          message: 'the patient id provided not found',
+        });
+      }
+    } catch (err) {
+      const error = handleErrorsForGetReports(err);
+      res.status(400).send({
+        message: 'error in deleting patient',
+        error: error,
+      });
+    }
+  },
 };

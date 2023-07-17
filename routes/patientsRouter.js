@@ -11,6 +11,6 @@ router.post(
   patientsController.createReport
 );
 router.get('/:id/all_reports', requireDoctor, patientsController.allReports);
-// router.delete('/delete/:id', patientsController.delete);
+router.delete('/:id/delete', requireDoctor, patientsController.delete);
 
 module.exports = router;
