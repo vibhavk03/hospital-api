@@ -16,7 +16,7 @@ const reportSchema = new mongoose.Schema(
       type: String,
       required: [true, `Please enter patient's covid status`],
       enum: {
-        values: ['negative', 'postive', 'quarantine'],
+        values: ['negative', 'positive', 'quarantine'],
         message: `{VALUE} is not supported, please try one of these values ['negative','postive','quarantine']`,
       },
     },
