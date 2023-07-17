@@ -10,7 +10,7 @@ router.post(
   requireDoctor,
   patientsController.createReport
 );
-// router.get('/all_reports/:id', patientsController.getAllReports);
+router.get('/:id/all_reports', requireDoctor, patientsController.allReports);
 // router.delete('/delete/:id', patientsController.delete);
 
 module.exports = router;

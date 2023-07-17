@@ -43,6 +43,17 @@ const handleErrorsForReport = function (err) {
   return errors;
 };
 
+const handleErrorsForGetReports = function (err) {
+  let errors = { patientId: '' };
+
+  /* if patient id is not valid */
+  if (err.message.includes('Cast to ObjectId failed')) {
+    errors.patientId = 'invalid patient id';
+  }
+
+  return errors;
+};
+
 module.exports = {
   register: async function (req, res) {
     try {
@@ -95,6 +106,32 @@ module.exports = {
       res.status(400).send({
         message: 'error in creating a report',
         error,
+      });
+    }
+  },
+  allReports: async function (req, res) {
+    try {
+      const patient = await Patient.findById(req.params.id);
+      if (!patient) {
+        /* if patient id provided is not found in db */
+        res.status(400).json({
+          message: 'the patient id provided not found',
+        });
+      } else {
+        /* get all reports */
+        const reports = await Report.find({
+          patientId: req.params.id,
+        });
+        res.status(201).json({
+          message: 'all reports fetched',
+          reports,
+        });
+      }
+    } catch (err) {
+      const error = handleErrorsForGetReports(err);
+      res.status(400).send({
+        message: 'error in getting all reports',
+        error: error,
       });
     }
   },
