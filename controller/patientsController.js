@@ -138,7 +138,12 @@ module.exports = {
   delete: async function (req, res) {
     try {
       const patient = await Patient.findByIdAndDelete(req.params.id);
-      if (patient) {
+      if (!patient) {
+        /* if patient id provided is not found in db */
+        res.status(400).json({
+          message: 'the patient id provided not found',
+        });
+      } else {
         /* delete reports associated with patient */
         await Report.deleteMany({
           patientId: req.params.id,
@@ -146,11 +151,6 @@ module.exports = {
         res.status(200).json({
           message: 'patient and associated reports deleted',
           patient,
-        });
-      } else {
-        /* if patient id provided is not found in db */
-        res.status(400).json({
-          message: 'the patient id provided not found',
         });
       }
     } catch (err) {

@@ -43,7 +43,10 @@ module.exports = {
       const doctor = await Doctor.create(req.body);
       const token = createToken(doctor._id);
       res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-      res.status(201).send(doctor);
+      res.status(201).send({
+        message: 'doctor registered',
+        doctor,
+      });
     } catch (err) {
       console.log(`error in registering a doctor : ${err}`);
       const error = handleErrors(err);
@@ -59,7 +62,10 @@ module.exports = {
       const doctor = await Doctor.login(email, password);
       const token = createToken(doctor._id);
       res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-      res.json({ doctorId: doctor.id });
+      res.json({
+        message: 'doctor logged in',
+        doctor: doctor,
+      });
     } catch (err) {
       const errors = handleErrors(err);
       res.status(400).json({
@@ -85,9 +91,12 @@ module.exports = {
     /* delete the jwt token */
     res.cookie('jwt', '', { maxAge: 1 });
     /* delete the doctor by ID */
-    await Doctor.deleteOne({ _id: res.locals.doctor.id });
+    const doctor = await Doctor.findOneAndDelete({
+      _id: res.locals.doctor.id,
+    });
     res.json({
-      message: 'your profile is now deleted',
+      message: 'doctor profile is now deleted',
+      deletedDoctor: doctor,
     });
   },
 };
