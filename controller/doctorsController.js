@@ -1,3 +1,4 @@
+require('dotenv').config();
 const Doctor = require('../models/Doctor');
 const jwt = require('jsonwebtoken');
 
@@ -32,7 +33,7 @@ const handleErrors = function (err) {
 /* max age is 1 hour */
 const maxAge = 60 * 60;
 const createToken = (id) => {
-  return jwt.sign({ id }, 'thisIsMySecret', {
+  return jwt.sign({ id }, process.env.MY_SECRET_KEY, {
     expiresIn: maxAge,
   });
 };

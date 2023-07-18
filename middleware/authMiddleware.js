@@ -1,3 +1,4 @@
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const Doctor = require('../models/Doctor');
 
@@ -5,7 +6,7 @@ const requireAuth = async (req, res, next) => {
   const token = req.cookies.jwt;
   /* check if jwt exists and is verified */
   if (token) {
-    jwt.verify(token, 'thisIsMySecret', (err, decodedToken) => {
+    jwt.verify(token, process.env.MY_SECRET_KEY, (err, decodedToken) => {
       if (err) {
         res.status(400).json({
           message: `error in accessing this route`,
@@ -27,7 +28,7 @@ const checkUser = (req, res, next) => {
   const token = req.cookies.jwt;
   /* check if jwt exists and is verified */
   if (token) {
-    jwt.verify(token, 'thisIsMySecret', async (err, decodedToken) => {
+    jwt.verify(token, process.env.MY_SECRET_KEY, async (err, decodedToken) => {
       if (err) {
         res.locals.user = null;
         next();
@@ -47,7 +48,7 @@ const requireDoctor = (req, res, next) => {
   const token = req.cookies.jwt;
   /* check if jwt exists and is verified */
   if (token) {
-    jwt.verify(token, 'thisIsMySecret', async (err, decodedToken) => {
+    jwt.verify(token, process.env.MY_SECRET_KEY, async (err, decodedToken) => {
       if (err) {
         res.status(400).json({
           message: `error in accessing this route, please login`,
