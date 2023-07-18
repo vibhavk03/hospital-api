@@ -1,6 +1,7 @@
 # Hospital API Project
 
-Access this project live here -->
+Live base url --> https://sleepy-tank-top-wasp.cyclic.app
+Please import hosted postman collection from the postmanCollection folder to consume the API from your local machine.
 
 ![](assets/screenshots/doctor_register.JPG)
 
@@ -58,4 +59,4 @@ If want to start using nodemon run the following command
 npm run dev
 ```
 
-4 - Import the postman collection provided in the API and consume the API from there.
+4 - Import the postman collection provided in the API and consume the API from there
