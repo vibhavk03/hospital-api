@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+
+/* require doctor is authentication middlware */
 const { requireDoctor } = require('../middleware/authMiddleware');
 
 const doctorsController = require('../controller/doctorsController');

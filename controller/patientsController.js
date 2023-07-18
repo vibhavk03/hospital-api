@@ -16,6 +16,7 @@ const handleErrorsForPatient = async function (err, body) {
   }
   if (err.message.includes('patient validation failed')) {
     Object.values(err.errors).forEach(({ properties }) => {
+      /* attaching proper error messages to errors object defined above */
       const { message, path } = properties;
       errors[path] = message;
     });
@@ -30,12 +31,13 @@ const handleErrorsForReport = function (err) {
   /* patient register error handling */
   if (err.message.includes('report validation failed')) {
     Object.values(err.errors).forEach(({ properties }) => {
+      /* attaching proper error messages to errors object defined above */
       const { message, path } = properties;
       errors[path] = message;
     });
   }
 
-  /* if patient id is not valid */
+  /* if patient object id is not valid */
   if (err.message.includes('Cast to ObjectId failed')) {
     errors.patientId = 'invalid patient id';
   }
@@ -46,7 +48,7 @@ const handleErrorsForReport = function (err) {
 const handleErrorsForGetReports = function (err) {
   let errors = { patientId: '' };
 
-  /* if patient id is not valid */
+  /* if patient object id is not valid */
   if (err.message.includes('Cast to ObjectId failed')) {
     errors.patientId = 'invalid patient id';
   }
@@ -66,6 +68,7 @@ module.exports = {
       console.log(`error in registering a patient : ${err}`);
       const error = await handleErrorsForPatient(err, req.body);
       if (error.patientFound) {
+        /* if patient found with phone number, return that user details */
         res.status(200).json({
           message: 'patient already registered by this phone number',
           patient: error.patient[0],
@@ -87,7 +90,7 @@ module.exports = {
           message: 'the patient id provided not found',
         });
       } else {
-        /* create report */
+        /* if patient found, create report */
         let { status, doctorComments } = req.body;
         doctorComments = doctorComments ? doctorComments : '';
         const report = await Report.create({
@@ -118,7 +121,7 @@ module.exports = {
           message: 'the patient id provided not found',
         });
       } else {
-        /* get all reports */
+        /* if patient found, get all reports */
         const reports = await Report.find({
           patientId: req.params.id,
         });
@@ -144,7 +147,7 @@ module.exports = {
           message: 'the patient id provided not found',
         });
       } else {
-        /* delete reports associated with patient */
+        /* if patient found, delete reports associated with patient as well */
         await Report.deleteMany({
           patientId: req.params.id,
         });

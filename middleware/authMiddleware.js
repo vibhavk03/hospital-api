@@ -50,17 +50,20 @@ const requireDoctor = (req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.MY_SECRET_KEY, async (err, decodedToken) => {
       if (err) {
+        /* if jwt not valid throw error */
         res.status(400).json({
           message: `error in accessing this route, please login`,
           error: `${err.message}`,
         });
       } else {
+        /* if jwt verified then fetch the doctor from db and store it in res.locals */
         const doctor = await Doctor.findById(decodedToken.id);
         res.locals.doctor = doctor;
         next();
       }
     });
   } else {
+    /* no token in the request */
     res.status(400).json({
       message: 'error in accessing this route, please login',
     });

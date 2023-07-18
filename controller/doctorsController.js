@@ -9,7 +9,6 @@ const handleErrors = function (err) {
   if (err.message === 'incorrect email') {
     errors.email = 'that email is not registered';
   }
-
   if (err.message === 'incorrect password') {
     errors.email = 'that password is not incorrect';
   }
@@ -22,6 +21,7 @@ const handleErrors = function (err) {
   }
   if (err.message.includes('doctor validation failed')) {
     Object.values(err.errors).forEach(({ properties }) => {
+      /* attaching proper error messages to errors object defined above */
       const { message, path } = properties;
       errors[path] = message;
     });
@@ -42,6 +42,7 @@ module.exports = {
   register: async function (req, res) {
     try {
       const doctor = await Doctor.create(req.body);
+      /* create a jwt token and send it back in cookies */
       const token = createToken(doctor._id);
       res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
       res.status(201).send({
@@ -60,7 +61,9 @@ module.exports = {
   login: async function (req, res) {
     const { email, password } = req.body;
     try {
+      /* calling static method to login user */
       const doctor = await Doctor.login(email, password);
+      /* create a jwt token and send it back in cookies */
       const token = createToken(doctor._id);
       res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
       res.json({

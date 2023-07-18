@@ -8,7 +8,9 @@ const db = require('./config/mongoose.js');
 
 const app = express();
 
+/* parsing incoming payload as JSON */
 app.use(express.json());
+/* cookie-parser middleware to parse cookies */
 app.use(cookieParser());
 
 /* routing all requests here */
