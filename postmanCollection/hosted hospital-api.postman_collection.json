@@ -1,0 +1,301 @@
+{
+	"info": {
+		"_postman_id": "50aed226-94b0-43e5-9a76-5a684e654ad9",
+		"name": "hosted hospital-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "patient",
+			"item": [
+				{
+					"name": "patient - register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Natalie\",\r\n    \"age\": \"21\",\r\n    \"sex\": \"F\",\r\n    \"phone\": \"1234567894\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://sleepy-tank-top-wasp.cyclic.app/patients/register",
+							"protocol": "https",
+							"host": [
+								"sleepy-tank-top-wasp",
+								"cyclic",
+								"app"
+							],
+							"path": [
+								"patients",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patient - create report",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"positive\",\r\n    \"doctorComments\": \"admit patient\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://sleepy-tank-top-wasp.cyclic.app/patients/64b6d3f0fdcb025ad854cc58/create_report",
+							"protocol": "https",
+							"host": [
+								"sleepy-tank-top-wasp",
+								"cyclic",
+								"app"
+							],
+							"path": [
+								"patients",
+								"64b6d3f0fdcb025ad854cc58",
+								"create_report"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patient - get all reports",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"quarantine\",\r\n    \"doctorComments\": \"patient quarantine please\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://sleepy-tank-top-wasp.cyclic.app/patients/64b6d3f0fdcb025ad854cc58/all_reports",
+							"protocol": "https",
+							"host": [
+								"sleepy-tank-top-wasp",
+								"cyclic",
+								"app"
+							],
+							"path": [
+								"patients",
+								"64b6d3f0fdcb025ad854cc58",
+								"all_reports"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patient - delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://sleepy-tank-top-wasp.cyclic.app/patients/64b6d3f0fdcb025ad854cc58/delete",
+							"protocol": "https",
+							"host": [
+								"sleepy-tank-top-wasp",
+								"cyclic",
+								"app"
+							],
+							"path": [
+								"patients",
+								"64b6d3f0fdcb025ad854cc58",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "doctor",
+			"item": [
+				{
+					"name": "doctor - register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"doctor2@gmail.com\",\r\n    \"password\": \"doctor2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://sleepy-tank-top-wasp.cyclic.app/doctors/register",
+							"protocol": "https",
+							"host": [
+								"sleepy-tank-top-wasp",
+								"cyclic",
+								"app"
+							],
+							"path": [
+								"doctors",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "doctor - login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"doctor2@gmail.com\",\r\n    \"password\": \"doctor2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://sleepy-tank-top-wasp.cyclic.app/doctors/login",
+							"protocol": "https",
+							"host": [
+								"sleepy-tank-top-wasp",
+								"cyclic",
+								"app"
+							],
+							"path": [
+								"doctors",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "doctor - check login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://sleepy-tank-top-wasp.cyclic.app/doctors/checkLogin",
+							"protocol": "https",
+							"host": [
+								"sleepy-tank-top-wasp",
+								"cyclic",
+								"app"
+							],
+							"path": [
+								"doctors",
+								"checkLogin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "doctor - logout",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://sleepy-tank-top-wasp.cyclic.app/doctors/logout",
+							"protocol": "https",
+							"host": [
+								"sleepy-tank-top-wasp",
+								"cyclic",
+								"app"
+							],
+							"path": [
+								"doctors",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "doctor - delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://sleepy-tank-top-wasp.cyclic.app/doctors/delete",
+							"protocol": "https",
+							"host": [
+								"sleepy-tank-top-wasp",
+								"cyclic",
+								"app"
+							],
+							"path": [
+								"doctors",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "report - get all reports from status",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\": \"quarantine\",\r\n    \"doctorComments\": \"patient quarantine please\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sleepy-tank-top-wasp.cyclic.app/reports/quarantine",
+					"protocol": "https",
+					"host": [
+						"sleepy-tank-top-wasp",
+						"cyclic",
+						"app"
+					],
+					"path": [
+						"reports",
+						"quarantine"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
