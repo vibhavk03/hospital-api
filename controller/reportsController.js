@@ -16,7 +16,7 @@ module.exports = {
         });
       } else {
         res.status(400).json({
-          message: `the status is incorrect, please try one of these values ['negative','postive','quarantine']`,
+          message: `the status is incorrect, please try one of these values ['negative','positive','quarantine']`,
         });
       }
     } catch (err) {
